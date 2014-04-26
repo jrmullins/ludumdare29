@@ -12,10 +12,5 @@ public class FishCollider : MonoBehaviour {
 	
 
 	//TODO This could go in fishy behavior
-	void OnCollisionEnter2D(Collision2D collision)
-	{
-		AnimationHandler ah = thePlayer.GetComponent<AnimationHandler> ();
-		ah.playEat (healthSystemAmount);
-		Destroy (this.gameObject);
-	}
+
 }

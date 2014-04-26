@@ -46,9 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\AnimationHandler.cs" />
-     <Compile Include="Assets\Blinker.cs" />
-     <Compile Include="Assets\HealthSystem.cs" />
      <Compile Include="Assets\RagePixel\Code\IRagePixel.cs" />
      <Compile Include="Assets\RagePixel\Code\RagePixelAnimation.cs" />
      <Compile Include="Assets\RagePixel\Code\RagePixelBitmap.cs" />
@@ -58,9 +55,21 @@
      <Compile Include="Assets\RagePixel\Code\RagePixelSettings.cs" />
      <Compile Include="Assets\RagePixel\Code\RagePixelSprite.cs" />
      <Compile Include="Assets\RagePixel\Code\RagePixelSpriteSheet.cs" />
+     <Compile Include="Assets\Scripts\AnimationHandler.cs" />
+     <Compile Include="Assets\Scripts\Blinker.cs" />
+     <Compile Include="Assets\Scripts\BodyCollider.cs" />
+     <Compile Include="Assets\Scripts\BoundaryBehavior.cs" />
      <Compile Include="Assets\Scripts\FishCollider.cs" />
      <Compile Include="Assets\Scripts\FishyBehavior.cs" />
+     <Compile Include="Assets\Scripts\FollowPlayer.cs" />
+     <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\HarlemShake.cs" />
+     <Compile Include="Assets\Scripts\HealthSystem.cs" />
+     <Compile Include="Assets\Scripts\MouthCollider.cs" />
+     <Compile Include="Assets\Scripts\RotateWithplayer.cs" />
      <Compile Include="Assets\Scripts\SharkMover.cs" />
+     <Compile Include="Assets\Scripts\Spawner.cs" />
+     <Compile Include="Assets\Scripts\WhiteCapBehavior.cs" />
      <None Include="Assets\RagePixel\readme.txt" />
      <None Include="Assets\RagePixel\Code\RagePixelBasicFlash.shader" />
      <None Include="Assets\RagePixel\Code\RagePixelBasic.shader" />

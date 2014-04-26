@@ -4,14 +4,20 @@ using System.Collections;
 public class SharkMover : MonoBehaviour {
 
 	public float swimSpeed = 60.0f;
+	public float swimForce = 50.0f;
 	public float verticalRotationSpeed;
-
+	public bool isFlying = false;
 
 	private float currentSpeed = 0.0f;
-	private bool goingLeft;
+	public bool goingLeft;
 	private Vector2 rotator;
 	private Vector2 currentDirection;
 	private float wantedAngle;
+	private int buttonsBeingPressed = 0;
+
+	private GameObject mouthLeft;
+	private GameObject mouthRight;
+	private GameObject body;
 
 	private IRagePixel ragePixel;
 
@@ -21,32 +27,44 @@ public class SharkMover : MonoBehaviour {
 		rotator = Vector2.zero;
 		ragePixel = GetComponent<RagePixelSprite> ();
 		ragePixel.PlayNamedAnimation ("Idle", false);
+		goingLeft = true;
+		mouthLeft = GameObject.Find ("Mouth Left");
+		mouthRight = GameObject.Find ("Mouth Right");
+		body = GameObject.FindGameObjectWithTag ("Body");
+		if (!body || !mouthLeft || !mouthRight)
+			Debug.LogError ("MISSING MOUTH OR BODY");
+
+		mouthLeft.SetActive (true);
+		mouthRight.SetActive (false);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		buttonsBeingPressed = 0;
 
-		if (upKeyCodes()){
-			swimUp ();
-		}
-		else if (leftKeyCodes()){
-			swimLeft ();
-		}
-		else if (downKeyCodes()){
-			swimDown ();
-		}
-		else if (rightKeyCodes()){
-			swimRight ();
-		}
+		if (!isFlying) {
+			if (upKeyCodes()){
+				swimUp ();
+			}
+			if (leftKeyCodes()){
+				swimLeft ();
+			}
+			if (downKeyCodes()){
+				swimDown ();
+			}
+			if (rightKeyCodes()){
+				swimRight ();
+			}
 
-		//TODO Clean this up
-		if (Input.GetKeyUp (KeyCode.W) || Input.GetKeyUp (KeyCode.UpArrow))
-			wantedAngle = 0.0f;
+			//TODO Clean this up
+			if (Input.GetKeyUp (KeyCode.W) || Input.GetKeyUp (KeyCode.UpArrow))
+				wantedAngle = 0.0f;
 
-		if (Input.GetKeyUp (KeyCode.S) || Input.GetKeyUp (KeyCode.DownArrow))
-			wantedAngle = 0.0f;
+			if (Input.GetKeyUp (KeyCode.S) || Input.GetKeyUp (KeyCode.DownArrow))
+				wantedAngle = 0.0f;
 
-		swimFaster ();
+			swimFaster ();
+		}
 
 	}
 
@@ -56,35 +74,41 @@ public class SharkMover : MonoBehaviour {
 	}
 
 	void swimUp() {
-		wantedAngle = 270.0f;
+		wantedAngle = 90.0f;
+		if(goingLeft)
+			wantedAngle = 270.0f;
 		swim (Vector2.up);
 	}
 	void swimDown() {
-		wantedAngle =90.0f;
+		wantedAngle =270.0f;
+		if(goingLeft)
+			wantedAngle = 90.0f;
 		swim (-Vector2.up);
 	}
 	void swimLeft() {
 		goingLeft = true;
 		wantedAngle = 0.0f;
+		mouthLeft.SetActive (true);
+		mouthRight.SetActive (false);
 		swim (-Vector2.right);
 	}
 	void swimRight() {
 		goingLeft = false;
 		wantedAngle = 0.0f;
+		mouthLeft.SetActive (false);
+		mouthRight.SetActive (true);
 		swim (Vector2.right);
 	}
 	
 	void swim(Vector2 direction)
 	{
-		transform.Translate (-Vector2.right * currentSpeed * Time.deltaTime);
+		//transform.Translate (-Vector2.right * currentSpeed * Time.deltaTime);
+		physicsSwim (direction);
 	}
 
 	void physicsSwim(Vector2 direction)
 	{
-		currentDirection = direction;
-
-		transform.rigidbody2D.AddForce (direction * (currentSpeed * 10) * Time.deltaTime);
-
+		transform.rigidbody2D.AddForce (direction * (currentSpeed * swimForce) * Time.deltaTime);
 	}
 
 	void rotateShark()
@@ -92,15 +116,15 @@ public class SharkMover : MonoBehaviour {
 		float targetAngle;
 
 		if (goingLeft) {
-			rotator.y = 0.0f;
+			ragePixel.SetHorizontalFlip(false);
 		}
 		else {
-			rotator.y = 180.0f;
+			ragePixel.SetHorizontalFlip(true);
 		}
 
 		float angle = Mathf.LerpAngle (transform.eulerAngles.z, wantedAngle, verticalRotationSpeed * Time.deltaTime);
-		//Debug.Log ("Current rotation: " + transform.eulerAngles.z + " Wanted Angle: " + wantedAngle + " Calculated Angle: " + angle);
-		transform.eulerAngles = new Vector3(0, rotator.y, angle);
+		Vector3 rotationator = new Vector3(0, 0, angle);
+		transform.eulerAngles = rotationator;
 	}
 
 	void swimFaster(){
@@ -127,4 +151,10 @@ public class SharkMover : MonoBehaviour {
 	bool leftKeyCodes() {
 		return Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.LeftArrow);
 	}
+
+//	void OnTriggerEnter2D(Collider2D other)
+//	{
+//		Debug.Log ("Trigger Entered in shark");
+//	}
+
 }
