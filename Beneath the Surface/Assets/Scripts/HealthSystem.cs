@@ -19,10 +19,14 @@ public class HealthSystem : MonoBehaviour {
 	private bool isEnemy;
 	private GameController gc;
 	private FishyBehavior fishy;
+	private AudioSource sound;
+	private AudioEngineThing aet;
 
 	void Start() {
 		blinky = GetComponent<Blinker> ();
+		sound = GetComponent<AudioSource> ();
 		gc = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
+		aet = GameObject.FindGameObjectWithTag ("Player").GetComponent<AudioEngineThing> ();
 		fishy = transform.GetComponent<FishyBehavior> ();
 		dead = false;
 		isEnemy = false;
@@ -50,6 +54,10 @@ public class HealthSystem : MonoBehaviour {
 
 			if (isEnemy)
 				gc.currentEnemies--;
+
+			if (!isEnemy)
+				gc.showScore();
+
 			Destroy(this.gameObject);
 		}
 	}
@@ -69,6 +77,16 @@ public class HealthSystem : MonoBehaviour {
 			health -= amount;
 			blinky.blinkColor = Color.red;
 			blinky.startBlinking ();
+
+			if (aet){
+
+				if(!isEnemy)
+					aet.munch ();
+		
+				if(sound)
+					aet.playSound(this.gameObject.transform.name);
+
+			}
 		}
 	}
 

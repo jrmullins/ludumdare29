@@ -39,6 +39,7 @@ public class WhiteCapBehavior : MonoBehaviour {
 		if ( actualObject.tag == "Player") {
 			GameObject go = Instantiate(Resources.Load("Splash")) as GameObject;
 			go.transform.position = actualObject.transform.position;
+			thePlayer.GetComponent<AudioEngineThing>().playSplash();
 		}
 
 	}

@@ -1,16 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Spawner.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/HealthSystem.cs">
     <Files>
-      <File FileName="Assets/Scripts/RotateWithplayer.cs" Line="16" Column="5" />
+      <File FileName="Assets/Scripts/RotateWithplayer.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/SharkMover.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GameController.cs" Line="97" Column="5" />
-      <File FileName="Assets/Scripts/HealthSystem.cs" Line="44" Column="1" />
+      <File FileName="Assets/Scripts/GameController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/HealthSystem.cs" Line="65" Column="4" />
       <File FileName="Assets/Scripts/FollowPlayer.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MouthCollider.cs" Line="37" Column="4" />
-      <File FileName="Assets/Scripts/BodyCollider.cs" Line="35" Column="34" />
-      <File FileName="Assets/Scripts/WhiteCapBehavior.cs" Line="50" Column="5" />
-      <File FileName="Assets/Scripts/Spawner.cs" Line="33" Column="40" />
+      <File FileName="Assets/Scripts/MouthCollider.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/BodyCollider.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/WhiteCapBehavior.cs" Line="1" Column="1" />
+      <File FileName="Assets/SetSortingOrder.cs" Line="1" Column="1" />
+      <File FileName="Assets/GameStartController.cs" Line="23" Column="86" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

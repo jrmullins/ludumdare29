@@ -46,7 +46,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\AudioEngineThing.cs" />
      <Compile Include="Assets\DestroyByTime.cs" />
+     <Compile Include="Assets\GameStartController.cs" />
      <Compile Include="Assets\RagePixel\Code\IRagePixel.cs" />
      <Compile Include="Assets\RagePixel\Code\RagePixelAnimation.cs" />
      <Compile Include="Assets\RagePixel\Code\RagePixelBitmap.cs" />
@@ -71,6 +73,7 @@
      <Compile Include="Assets\Scripts\SharkMover.cs" />
      <Compile Include="Assets\Scripts\Spawner.cs" />
      <Compile Include="Assets\Scripts\WhiteCapBehavior.cs" />
+     <Compile Include="Assets\SetSortingOrder.cs" />
      <None Include="Assets\RagePixel\readme.txt" />
      <None Include="Assets\RagePixel\Code\RagePixelBasicFlash.shader" />
      <None Include="Assets\RagePixel\Code\RagePixelBasic.shader" />
