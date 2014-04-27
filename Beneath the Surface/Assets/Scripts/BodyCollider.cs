@@ -3,6 +3,7 @@ using System.Collections;
 
 public class BodyCollider : MonoBehaviour {
 
+	public GameObject gibs;
 	private HarlemShake hs;
 	private AnimationHandler ah;
 	private GameObject thePlayer;
@@ -15,7 +16,7 @@ public class BodyCollider : MonoBehaviour {
 		ah = thePlayer.GetComponent<AnimationHandler> ();
 	}
 	
-	
+
 	void OnCollisionEnter2D(Collision2D collision) {
 		//Debug.Log ("Touched the body");
 		if(collision.gameObject.tag == "Enemy") {
@@ -31,6 +32,8 @@ public class BodyCollider : MonoBehaviour {
 			thePlayer.GetComponent<HealthSystem>().removeHealth(dmg);
 			hs.startShake();
 			ah.playDamage();
+			ContactPoint2D contactPoint = collision.contacts[collision.contacts.Length -1];
+			Instantiate(gibs, contactPoint.point, Quaternion.identity);
 		}
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class MouthCollider : MonoBehaviour {
 
+	public GameObject gibs;
 	private HarlemShake hs;
 	private AnimationHandler ah;
 	private GameObject thePlayer;
@@ -13,6 +14,7 @@ public class MouthCollider : MonoBehaviour {
 		hs = Camera.main.GetComponent<HarlemShake> ();
 		thePlayer = GameObject.FindGameObjectWithTag ("Player");
 		ah = thePlayer.GetComponent<AnimationHandler> ();
+
 	}
 	
 	// Update is called once per frame
@@ -32,6 +34,9 @@ public class MouthCollider : MonoBehaviour {
 			thePlayer.GetComponent<HealthSystem>().addHealth(health);
 			hs.startShake();
 			ah.playEat();
+			ContactPoint2D contactPoint = collision.contacts[collision.contacts.Length-1];
+			//Vector2 blah = this.gameObject.transform.position;
+			Instantiate(gibs, contactPoint.point, Quaternion.identity);
 		}
 	}
 }

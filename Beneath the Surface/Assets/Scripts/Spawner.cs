@@ -29,8 +29,9 @@ public class Spawner : MonoBehaviour {
 		{
 			nextSpawn = Time.time + rate;
 			//TODO randomize spawnloc within boundary
-			//Vector2 spawnLoc;
-			theEnemy = (GameObject)Instantiate(prefab, transform.position, Quaternion.identity);
+			Vector2 spawnLoc = transform.position;
+			spawnLoc.y += Random.Range(-15.0f, 15.0f);
+			theEnemy = (GameObject)Instantiate(prefab, spawnLoc, Quaternion.identity);
 		}
-	}
+	}	
 }

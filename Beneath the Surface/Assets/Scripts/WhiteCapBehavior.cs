@@ -34,7 +34,12 @@ public class WhiteCapBehavior : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
+		GameObject actualObject = other.gameObject.transform.parent.gameObject;
 		//Debug.Log ("Trigger enter");
+		if ( actualObject.tag == "Player") {
+			GameObject go = Instantiate(Resources.Load("Splash")) as GameObject;
+			go.transform.position = actualObject.transform.position;
+		}
 
 	}
 
@@ -42,7 +47,9 @@ public class WhiteCapBehavior : MonoBehaviour {
 		GameObject actualObject = other.gameObject.transform.parent.gameObject;
 
 		if ( actualObject.tag == "Player") {
-
+//			GameObject go = Instantiate(Resources.Load("Splash")) as GameObject;
+//			go.transform.position = actualObject.transform.position;
+			
 			if(!m.isFlying && actualObject.rigidbody2D.velocity.y > 0) {
 				m.isFlying= true;
 				actualObject.rigidbody2D.gravityScale = gravityInAir;

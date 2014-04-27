@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 
-	public int score;
+	public float score;
 	private float health;
 	private HealthSystem hs;
 
@@ -38,6 +38,12 @@ public class GameController : MonoBehaviour {
 	void LateUpdate() {
 		health = hs.health;
 	}
+
+	public void addScore(float value){
+		score += value;
+	}
+
+
 	public bool canSpawn(GameObject go)
 	{
 		if (currentEnemies < maxEnemies){
@@ -80,10 +86,23 @@ public class GameController : MonoBehaviour {
 	}
 
 	void OnGUI() {
+		//GUIContent gc = new GUIContent ();
+		//gc
 		Rect scoreRect = new Rect(10,10,100,20);
 		Rect healthRect = new Rect(10,30,100,20);
 		GUI.Label(scoreRect, "Score: " + score);
-		GUI.Label(healthRect, "Health: " + health);
+		GUI.Label(healthRect, "Hunger: " + health);
+
+
+//		if(GUI.Button (Rect ( 400, 200, 150, 30), "Retry Level" ))
+//		{
+//			
+//			Application.LoadLevel(Application.loadedLevel);
+//			Time.timeScale = 1;
+//			//AudioListener.volume = 100;
+//			//Destroy(gameMusic);
+//			
+//		}
 
 	}
 

@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class HealthSystem : MonoBehaviour {
-
+	
 	public float health = 100.0f;
 	public float damageCooldownRate = 1.0f;
 	public bool godMode = false;
@@ -10,6 +10,7 @@ public class HealthSystem : MonoBehaviour {
 
 	public float hungerTicks = 20.0f;
 	public float hungerCooldownRate = 1.0f;
+	public GameObject gibs;
 
 	private float nextDamage;
 	private float nextHunger;
@@ -17,10 +18,12 @@ public class HealthSystem : MonoBehaviour {
 	private bool dead;
 	private bool isEnemy;
 	private GameController gc;
+	private FishyBehavior fishy;
 
 	void Start() {
 		blinky = GetComponent<Blinker> ();
 		gc = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
+		fishy = transform.GetComponent<FishyBehavior> ();
 		dead = false;
 		isEnemy = false;
 		if (this.gameObject.tag == "Enemy")
@@ -38,6 +41,13 @@ public class HealthSystem : MonoBehaviour {
 	void LateUpdate(){
 		if(!godMode && health <= 0){
 			dead = true;
+			GameObject go = Instantiate(Resources.Load("Gibs")) as GameObject;
+			go.transform.position = transform.position;
+
+			if(isEnemy)
+				gc.addScore(fishy.scoreValue);
+
+
 			if (isEnemy)
 				gc.currentEnemies--;
 			Destroy(this.gameObject);

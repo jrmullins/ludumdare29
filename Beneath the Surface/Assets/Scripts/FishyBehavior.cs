@@ -3,6 +3,7 @@ using System.Collections;
 
 public class FishyBehavior : MonoBehaviour {
 
+	public float scoreValue=10.0f;
 	public float fishSpeed;
 	public float healthSystemAmount;
 	public float distanceBeforeTurn = 2.0f;
@@ -44,15 +45,17 @@ public class FishyBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (aggressive)
-			checkAggression ();
+		if(thePlayer) {
+			if (aggressive)
+				checkAggression ();
 
-		if(attacking){
-			attack();
-		} else if (returningToSpawnPoint) {
-			returnToSpawnPoint ();
-		} else if (!isFalling()){
-			patrol ();
+			if(attacking){
+				attack();
+			} else if (returningToSpawnPoint) {
+				returnToSpawnPoint ();
+			} else if (!isFalling()){
+				patrol ();
+			}
 		}
 
 		//Debug.Log ("Attacking: " + attacking + " Returning: " + returningToSpawnPoint);
