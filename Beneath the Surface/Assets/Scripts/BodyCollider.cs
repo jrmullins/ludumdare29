@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class BodyCollider : MonoBehaviour {
@@ -26,14 +26,18 @@ public class BodyCollider : MonoBehaviour {
 
 
 			theEnemy = collision.gameObject;
-			float dmg = theEnemy.GetComponent<FishyBehavior>().eatDamage;
+			float dmg = theEnemy.GetComponent<FishyBehavior>().damageToPlayer;
 			float health = theEnemy.GetComponent<FishyBehavior>().healthSystemAmount;
-			//theEnemy.GetComponent<HealthSystem>().removeHealth(dmg);
 			thePlayer.GetComponent<HealthSystem>().removeHealth(dmg);
 			hs.startShake();
 			ah.playDamage();
 			ContactPoint2D contactPoint = collision.contacts[collision.contacts.Length -1];
 			Instantiate(gibs, contactPoint.point, Quaternion.identity);
+			FishyBehavior fb = theEnemy.GetComponent<FishyBehavior>();
+			if (fb.attacking){
+				fb.attacking = false;
+				fb.returningToSpawnPoint = true;
+			}
 		}
 	}
 }

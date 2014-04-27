@@ -8,7 +8,7 @@ public class Blinker : MonoBehaviour {
 	public Color blinkColor;
 
 	private float nextBlink;
-	private int blinksLeft;
+	public int blinksLeft;
 
 	private bool blinking;
 	private bool isColored;

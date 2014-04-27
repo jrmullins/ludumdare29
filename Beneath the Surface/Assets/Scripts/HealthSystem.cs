@@ -4,6 +4,7 @@ using System.Collections;
 public class HealthSystem : MonoBehaviour {
 	
 	public float health = 100.0f;
+	public float maxhealth = 250.0f;
 	public float damageCooldownRate = 1.0f;
 	public bool godMode = false;
 	public bool hasHunger = false;
@@ -58,12 +59,15 @@ public class HealthSystem : MonoBehaviour {
 			if (!isEnemy)
 				gc.showScore();
 
+			if(aet)
+				aet.explosionPlay();
+
 			Destroy(this.gameObject);
 		}
 	}
 
 	public void addHealth(float amount){
-		if (Time.time > nextDamage){
+		if (Time.time > nextDamage && health <= maxhealth){
 			nextDamage = Time.time + damageCooldownRate;
 			health += amount;
 			blinky.blinkColor = Color.green;
@@ -80,8 +84,11 @@ public class HealthSystem : MonoBehaviour {
 
 			if (aet){
 
-				if(!isEnemy)
+				if(isEnemy)
 					aet.munch ();
+
+				if(!isEnemy)
+					aet.damage();
 		
 				if(sound)
 					aet.playSound(this.gameObject.transform.name);

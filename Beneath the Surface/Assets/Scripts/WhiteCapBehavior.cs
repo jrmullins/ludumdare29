@@ -34,7 +34,10 @@ public class WhiteCapBehavior : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		GameObject actualObject = other.gameObject.transform.parent.gameObject;
+		GameObject actualObject = other.gameObject;
+		if (other.gameObject.transform.parent)
+			actualObject= other.gameObject.transform.parent.gameObject;
+
 		//Debug.Log ("Trigger enter");
 		if ( actualObject.tag == "Player") {
 			GameObject go = Instantiate(Resources.Load("Splash")) as GameObject;
@@ -45,7 +48,9 @@ public class WhiteCapBehavior : MonoBehaviour {
 	}
 
 	void OnTriggerExit2D(Collider2D other) {
-		GameObject actualObject = other.gameObject.transform.parent.gameObject;
+		GameObject actualObject = other.gameObject;
+		if (other.gameObject.transform.parent)
+			actualObject= other.gameObject.transform.parent.gameObject;
 
 		if ( actualObject.tag == "Player") {
 //			GameObject go = Instantiate(Resources.Load("Splash")) as GameObject;

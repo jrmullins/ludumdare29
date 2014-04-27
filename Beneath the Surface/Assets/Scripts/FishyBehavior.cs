@@ -5,10 +5,11 @@ public class FishyBehavior : MonoBehaviour {
 
 	public float scoreValue=10.0f;
 	public float fishSpeed;
+	public float patrolRange = 2.0f;
+	
+	public int bitePain;
+	public float damageToPlayer;
 	public float healthSystemAmount;
-	public float distanceBeforeTurn = 2.0f;
-	public bool destroyOnContact;
-	public int eatDamage;
 
 	private float currentSpeed = 5.0f;
 	private Vector2 startPosition;
@@ -25,9 +26,9 @@ public class FishyBehavior : MonoBehaviour {
 	public float attackTime = 5;
 	public float attackSwimSpeed = 1.0f;
 	private float stopAttackTime;
-	private bool attacking = false;
+	public bool attacking = false;
 	private float distanceToPlayer;
-	private bool returningToSpawnPoint=false;
+	public bool returningToSpawnPoint=false;
 
 	// Use this for initialization
 	void Start () {
@@ -131,7 +132,7 @@ public class FishyBehavior : MonoBehaviour {
 		float currentXPos = transform.position.x;
 		//Debug.Log (currentXPos +  " is less than " + nextTurnPoint.x);
 		if (goingLeft && currentXPos < nextTurnPoint.x){
-			nextTurnPoint.x = transform.position.x + distanceBeforeTurn;
+			nextTurnPoint.x = transform.position.x + patrolRange;
 			transform.eulerAngles = new Vector3(0, 180.0f, 0);
 			goingLeft = false;
 
@@ -141,7 +142,7 @@ public class FishyBehavior : MonoBehaviour {
 
 		if (!goingLeft && currentXPos > nextTurnPoint.x){
 			goingLeft = true;
-			nextTurnPoint.x = transform.position.x - distanceBeforeTurn;
+			nextTurnPoint.x = transform.position.x - patrolRange;
 			//Debug.Log ("RoTATE LEFT");
 			transform.eulerAngles = new Vector3(0, 0.0f, 0);
 		}
@@ -155,12 +156,12 @@ public class FishyBehavior : MonoBehaviour {
 		{
 			//Debug.Log ("Chose left");
 			goingLeft = true;
-			nextTurnPoint.x = transform.position.x - distanceBeforeTurn;
+			nextTurnPoint.x = transform.position.x - patrolRange;
 			transform.eulerAngles = new Vector3(0, 0.0f, 0);
 		} else {
 			//Debug.Log ("Chose right");
 			goingLeft = false;
-			nextTurnPoint.x = transform.position.x + distanceBeforeTurn;
+			nextTurnPoint.x = transform.position.x + patrolRange;
 			transform.eulerAngles = new Vector3(0, 180.0f, 0);
 		}
 	}

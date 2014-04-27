@@ -7,30 +7,33 @@ public class Spawner : MonoBehaviour {
 	public float rate;
 	public GameObject prefab;
 	public GameController gameController;
+	public float randomYRange = 15.0f;
+	public float randomXRange = 15.0f;
+	public float randomSpawnRange = 15.0f;
 
 	private float nextSpawn;
+	private float randomDelay;
 	private GameObject thePlayer;
 	private GameObject theEnemy;
+
+	private Vector2 spawnLoc;
 
 	// Use this for initialization
 	void Start () {
 		thePlayer = GameObject.FindGameObjectWithTag ("Player");
 		gameController = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
-		//nextSpawn = Time.time + rate;
+		randomDelay = Random.Range (0, 2);
+		nextSpawn = Time.time + randomDelay;
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
-//		Debug.Log ("thePlayer: " + thePlayer);
-//		Debug.Log ("gameController.canSpawn(prefab): " + gameController.canSpawn(prefab));
-//		Debug.Log ("Time.time > nextSpawn:" + (Time.time > nextSpawn));
-//		Debug.Log (" ");
 		if(thePlayer && Time.time > nextSpawn && gameController.canSpawn(prefab))
 		{
-			nextSpawn = Time.time + rate;
-			//TODO randomize spawnloc within boundary
-			Vector2 spawnLoc = transform.position;
-			spawnLoc.y += Random.Range(-15.0f, 15.0f);
+			randomDelay = Random.Range (0, randomSpawnRange);
+			nextSpawn = Time.time + rate + randomDelay;
+			spawnLoc = transform.position;
+			spawnLoc.x += Random.Range(-randomXRange, randomXRange);
+			spawnLoc.y += Random.Range(-randomYRange, randomYRange);
 			theEnemy = (GameObject)Instantiate(prefab, spawnLoc, Quaternion.identity);
 		}
 	}	

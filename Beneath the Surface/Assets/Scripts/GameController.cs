@@ -59,6 +59,7 @@ public class GameController : MonoBehaviour {
 
 	public void showScore(){
 		Vector3 position = Camera.main.transform.position;
+		Camera.main.GetComponent<AudioListener> ().enabled = true;
 		position.y += 200;
 		gameOverMan.SetActive (true);
 		gameOverMan.transform.position = position;
@@ -112,8 +113,9 @@ public class GameController : MonoBehaviour {
 	void OnGUI() {
 		//GUIContent gc = new GUIContent ();
 		//gc
-		Rect scoreRect = new Rect(10,10,100,20);
-		Rect healthRect = new Rect(10,30,100,20);
+		Rect scoreRect = new Rect(10,10,1000,200);
+		Rect healthRect = new Rect(10,80,1000,200);
+		GUI.skin.label.fontSize = 40;
 		GUI.Label(scoreRect, "Score: " + score);
 		GUI.Label(healthRect, "Hunger: " + health);
 
