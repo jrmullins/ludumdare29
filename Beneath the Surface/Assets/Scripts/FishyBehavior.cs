@@ -58,8 +58,6 @@ public class FishyBehavior : MonoBehaviour {
 				patrol ();
 			}
 		}
-
-		//Debug.Log ("Attacking: " + attacking + " Returning: " + returningToSpawnPoint);
 	}
 
 	void patrol(){
@@ -80,12 +78,17 @@ public class FishyBehavior : MonoBehaviour {
 	}
 
 	void attack(){
-		//Debug.Log ("ATTACKING!");
-		float verticalRotationSpeed = 10.0f;
-		float wantedAngle = Vector2.Angle (transform.position, thePlayer.transform.position);
+		float verticalRotationSpeed = 20.0f;
+		float wantedAngle = Vector2.Angle (transform.forward, thePlayer.transform.position) - 90.0f;
+		Debug.Log (wantedAngle);
 		float angle = Mathf.LerpAngle (transform.eulerAngles.z, wantedAngle, verticalRotationSpeed * Time.deltaTime);
-		//Debug.Log ("Current rotation: " + transform.eulerAngles.z + " Wanted Angle: " + wantedAngle + " Calculated Angle: " + angle);
-		transform.eulerAngles = new Vector3(0, transform.rotation.y, angle);
+		Vector3 rotateVector = new Vector3(0, transform.rotation.y, angle);
+
+		if (!goingLeft)
+			rotateVector.y = 180.0f;
+
+		transform.eulerAngles = rotateVector;
+		//ifgoingleft y=180, z=z+180
 		transform.position = Vector2.MoveTowards (transform.position, thePlayer.transform.position, attackSwimSpeed);
 	}
 
