@@ -14,9 +14,11 @@ public class FollowPlayer : MonoBehaviour {
 	}
 
 	void LateUpdate(){
-		moveTo = thePlayer.transform.position;
-		moveTo.x = 0;
-		moveTo.z = zdistance;
-		transform.position = Vector3.Lerp(transform.position, moveTo, Time.deltaTime * followSpeed);
+		if(thePlayer){
+			moveTo = thePlayer.transform.position;
+			moveTo.x = 0;
+			moveTo.z = zdistance;
+			transform.position = Vector3.Lerp(transform.position, moveTo, Time.deltaTime * followSpeed);
+		}
 	}
 }

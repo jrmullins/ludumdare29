@@ -17,7 +17,7 @@ public class BodyCollider : MonoBehaviour {
 	
 	
 	void OnCollisionEnter2D(Collision2D collision) {
-		Debug.Log ("Touched the body");
+		//Debug.Log ("Touched the body");
 		if(collision.gameObject.tag == "Enemy") {
 			//			playerAnimation.playDamage (healthSystemAmount);
 			//			attacking = false;

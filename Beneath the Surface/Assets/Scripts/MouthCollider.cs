@@ -22,7 +22,7 @@ public class MouthCollider : MonoBehaviour {
 
 
 	void OnCollisionEnter2D(Collision2D collision) {
-		Debug.Log ("Touched the mouth");
+		//Debug.Log ("Touched the mouth");
 		if(collision.gameObject.tag == "Enemy") {
 
 			theEnemy = collision.gameObject;

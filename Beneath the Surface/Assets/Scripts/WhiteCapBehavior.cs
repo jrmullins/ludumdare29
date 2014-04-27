@@ -23,29 +23,42 @@ public class WhiteCapBehavior : MonoBehaviour {
 //		}
 	}
 
+//	void OnTrigger2D(Collider2D other){
+//		Debug.Log ("Ontrigger2d");
+//		if(other.gameObject.tag == "Player") {
+//			if (other.rigidbody2D.velocity.y > 0){
+//				Debug.Log ("Going up");
+//			}
+//		}
+//	}
+
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.gameObject.tag == "Player") {
+		//Debug.Log ("Trigger enter");
 
-			if(!m.isFlying && other.rigidbody2D.velocity.y > 10) {
-				m.isFlying= true;
-				other.rigidbody2D.gravityScale = gravityInAir;
-			} 
-		}
 	}
 
 	void OnTriggerExit2D(Collider2D other) {
-		if (other.gameObject.tag == "Player") {
+		GameObject actualObject = other.gameObject.transform.parent.gameObject;
+
+		if ( actualObject.tag == "Player") {
+
+			if(!m.isFlying && actualObject.rigidbody2D.velocity.y > 0) {
+				m.isFlying= true;
+				actualObject.rigidbody2D.gravityScale = gravityInAir;
+			}
+
 			if ( m.isFlying && 
-			           //other.rigidbody2D.velocity.y < 0 && 
-			           other.gameObject.transform.position.y < this.transform.position.y + yOffset) {
+			    actualObject.rigidbody2D.velocity.y < 0) {
 				
 				//Flying, Falling, in water
 				
-				other.rigidbody2D.gravityScale = 0;
+				actualObject.rigidbody2D.gravityScale = 0;
 				m.isFlying= false;
 			}
 		}
+
+
 
 	}
 }
