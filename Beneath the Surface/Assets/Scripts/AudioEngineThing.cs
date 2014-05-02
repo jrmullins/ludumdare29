@@ -18,18 +18,12 @@ public class AudioEngineThing : MonoBehaviour {
 	public float audioCoolDown = 1.0f;
 	private float nextAudio;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
 	// Update is called once per frame
 	void Update () {
 		if (test) {
 			test=false;
 			munch ();
-				}
-	
+		}
 	}
 
 	public void munch(){
@@ -50,10 +44,7 @@ public class AudioEngineThing : MonoBehaviour {
 	}
 
 	public void explosionPlay(){
-//		if (Time.time > nextAudio){
-//			nextAudio = Time.time + audioCoolDown;
-			AudioSource.PlayClipAtPoint (explosion, this.transform.position);
-		//}
+		AudioSource.PlayClipAtPoint (explosion, this.transform.position);
 	}
 
 	public void playSound(string name)

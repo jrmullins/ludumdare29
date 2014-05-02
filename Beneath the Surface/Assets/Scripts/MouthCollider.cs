@@ -12,6 +12,11 @@ public class MouthCollider : MonoBehaviour {
 
 	private float nextChain;
 	public float chainRate=.25f;
+	private ContactPoint2D contactPoint;
+
+	private float dmg;
+	private float health;
+	private FishyBehavior fb;
 
 	// Use this for initialization
 	void Start () {
@@ -19,28 +24,20 @@ public class MouthCollider : MonoBehaviour {
 		thePlayer = GameObject.FindGameObjectWithTag ("Player");
 		ah = thePlayer.GetComponent<AnimationHandler> ();
 		aet = thePlayer.GetComponent<AudioEngineThing> ();
-
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
 
 	void OnCollisionEnter2D(Collision2D collision) {
-		//Debug.Log ("Touched the mouth");
-		if(collision.gameObject.tag == "Enemy") {
 
+		if(collision.gameObject.tag == "Enemy") {
 			theEnemy = collision.gameObject;
-			float dmg = theEnemy.GetComponent<FishyBehavior>().bitePain;
-			float health = theEnemy.GetComponent<FishyBehavior>().healthSystemAmount;
+			fb = theEnemy.GetComponent<FishyBehavior>();
+			dmg = fb.bitePain;
+			health = fb.healthSystemAmount;
 			theEnemy.GetComponent<HealthSystem>().removeHealth(dmg);
 			thePlayer.GetComponent<HealthSystem>().addHealth(health);
 			hs.startShake();
 			ah.playEat();
-			ContactPoint2D contactPoint = collision.contacts[collision.contacts.Length-1];
-			//Vector2 blah = this.gameObject.transform.position;
+			contactPoint = collision.contacts[collision.contacts.Length-1];
 			Instantiate(gibs, contactPoint.point, Quaternion.identity);
 			if(Time.time > nextChain){
 				nextChain = Time.time + chainRate;

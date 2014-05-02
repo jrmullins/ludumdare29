@@ -8,32 +8,30 @@ public class BodyCollider : MonoBehaviour {
 	private AnimationHandler ah;
 	private GameObject thePlayer;
 	private GameObject theEnemy;
+	private HealthSystem playerHealthSystem;
+	FishyBehavior fb;
 	
 	// Use this for initialization
 	void Start () {
 		hs = Camera.main.GetComponent<HarlemShake> ();
 		thePlayer = GameObject.FindGameObjectWithTag ("Player");
 		ah = thePlayer.GetComponent<AnimationHandler> ();
+		playerHealthSystem = thePlayer.GetComponent<HealthSystem> ();
 	}
 	
 
 	void OnCollisionEnter2D(Collision2D collision) {
-		//Debug.Log ("Touched the body");
+
 		if(collision.gameObject.tag == "Enemy") {
-			//			playerAnimation.playDamage (healthSystemAmount);
-			//			attacking = false;
-			//			returningToSpawnPoint = true;
-
-
 			theEnemy = collision.gameObject;
-			float dmg = theEnemy.GetComponent<FishyBehavior>().damageToPlayer;
-			float health = theEnemy.GetComponent<FishyBehavior>().healthSystemAmount;
-			thePlayer.GetComponent<HealthSystem>().removeHealth(dmg);
+			fb = theEnemy.GetComponent<FishyBehavior>();
+			float dmg = fb.damageToPlayer;
+			float health = fb.healthSystemAmount;
+			playerHealthSystem.removeHealth(dmg);
 			hs.startShake();
 			ah.playDamage();
 			ContactPoint2D contactPoint = collision.contacts[collision.contacts.Length -1];
 			Instantiate(gibs, contactPoint.point, Quaternion.identity);
-			FishyBehavior fb = theEnemy.GetComponent<FishyBehavior>();
 			if (fb.attacking){
 				fb.attacking = false;
 				fb.returningToSpawnPoint = true;

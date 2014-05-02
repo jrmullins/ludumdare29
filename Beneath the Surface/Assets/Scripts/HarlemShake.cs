@@ -10,14 +10,12 @@ public class HarlemShake : MonoBehaviour {
 
 	private Vector3 originalPosition;
 	private Vector3 shakeVector;
-	// Use this for initialization
 
 	void Start () {
 		isShaking = false;
 		shakeVector = Vector3.zero;
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		if(isShaking && shakesLeft > 0){
 			shakesLeft --;
@@ -31,22 +29,17 @@ public class HarlemShake : MonoBehaviour {
 	}
 	
 
-	void shake()
-	{
-
+	void shake() {
 		float xshake = Mathf.PerlinNoise (-1, 1) * shakeIntensity;
 		float yshake = Mathf.PerlinNoise (-1, 1) * shakeIntensity; 
 		float zshake = Mathf.PerlinNoise (-1, 1) * shakeIntensity;
 		shakeVector.x = originalPosition.x + xshake;
 		shakeVector.y = originalPosition.y + yshake;
-		shakeVector.z = originalPosition.z;//Vector3 (originalPosition.x + xshake, originalPosition.y + yshake,originalPosition.z);
-		//Debug.Log (shakeVector);
+		shakeVector.z = originalPosition.z;
 		transform.position = shakeVector;
-
 	}
 
-	public void startShake()
-	{
+	public void startShake(){
 		if(!isShaking){
 			isShaking = true;
 			shakesLeft = shakeCount;

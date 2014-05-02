@@ -22,6 +22,7 @@ public class HealthSystem : MonoBehaviour {
 	private FishyBehavior fishy;
 	private AudioSource sound;
 	private AudioEngineThing aet;
+	private GameObject go;
 
 	void Start() {
 		blinky = GetComponent<Blinker> ();
@@ -46,7 +47,7 @@ public class HealthSystem : MonoBehaviour {
 	void LateUpdate(){
 		if(!godMode && health <= 0){
 			dead = true;
-			GameObject go = Instantiate(Resources.Load("Gibs")) as GameObject;
+			go = Instantiate(Resources.Load("Gibs")) as GameObject;
 			go.transform.position = transform.position;
 
 			if(isEnemy)
@@ -83,16 +84,12 @@ public class HealthSystem : MonoBehaviour {
 			blinky.startBlinking ();
 
 			if (aet){
-
 				if(isEnemy)
 					aet.munch ();
-
 				if(!isEnemy)
 					aet.damage();
-		
 				if(sound)
 					aet.playSound(this.gameObject.transform.name);
-
 			}
 		}
 	}

@@ -21,11 +21,6 @@ public class BoundaryBehavior : MonoBehaviour {
 		minY = myCollider.collider.bounds.center.y - (myCollider.collider.bounds.min.y / 2);
 		minX = myCollider.collider.bounds.center.y + (myCollider.collider.bounds.min.y / 2);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	void OnCollisionExit2D(Collision2D coll)
 	{

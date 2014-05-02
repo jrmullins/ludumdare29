@@ -11,6 +11,14 @@ public class GibExplosion : MonoBehaviour {
 	private bool exploding = false;
 	public Sprite[] gibs;
 
+	private float xLoc;
+	private float yLoc;
+	private float zLoc;
+	private Vector3 spawnPoint;
+	private Vector3 randRotation;
+	private Sprite gibGfx;
+	private Vector2 force;
+
 	// Use this for initialization
 	void Start () {
 		explosionPoint = transform.position;
@@ -29,20 +37,21 @@ public class GibExplosion : MonoBehaviour {
 	void spawnGibs() {
 		Random.seed = (int)System.DateTime.Now.Ticks;
 		for(int i = 0; i < numberOfGibs; i++) {
-			float xLoc = Random.Range (zone.xMin,zone.xMax);
-			float yLoc = Random.Range (zone.yMin,zone.yMax);
-			float zLoc = 0;
+			xLoc = Random.Range (zone.xMin,zone.xMax);
+			yLoc = Random.Range (zone.yMin,zone.yMax);
+			zLoc = 0;
 
-			Vector3 spawnPoint = new Vector3(xLoc, yLoc, zLoc);
-			Vector3 randRotation = Random.insideUnitSphere * 100;
+			spawnPoint = new Vector3(xLoc, yLoc, zLoc);
+			randRotation = Random.insideUnitSphere * 100;
 			randRotation.x = 0.0f;
 			randRotation.y = 0.0f;
+
 			gib = (GameObject)Instantiate (gib, transform.position, Quaternion.Euler(randRotation));
 			gib.rigidbody2D.angularVelocity = Random.Range (-1000, 1000);
-			Sprite gibGfx = gibs[Random.Range (0, gibs.Length -1)];
+			gibGfx = gibs[Random.Range (0, gibs.Length -1)];
 			gib.GetComponent<SpriteRenderer>().sprite = gibGfx;
 
-			Vector2 force = Random.insideUnitCircle * 500;
+			force = Random.insideUnitCircle * 500;
 			gib.rigidbody2D.AddForceAtPosition(force, gib.transform.position);
 		}
 	}

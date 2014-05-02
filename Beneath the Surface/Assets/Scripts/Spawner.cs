@@ -27,8 +27,7 @@ public class Spawner : MonoBehaviour {
 	}
 
 	void Update () {
-		if(thePlayer && Time.time > nextSpawn && gameController.canSpawn(prefab))
-		{
+		if(thePlayer && Time.time > nextSpawn && gameController.canSpawn(prefab)){
 			randomDelay = Random.Range (0, randomSpawnRange);
 			nextSpawn = Time.time + rate + randomDelay;
 			spawnLoc = transform.position;

@@ -22,11 +22,6 @@ public class GameStartController : MonoBehaviour {
 		instructions.SetActive (false);
 		area = new Rect (Screen.width / 2 - buttonWidth/2, Screen.height / 2 - buttonHeight, buttonWidth, 400);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	void OnGUI(){
 		GUILayout.BeginArea (area);
@@ -47,8 +42,6 @@ public class GameStartController : MonoBehaviour {
 
 		if(GUILayout.Button ("Exit", GUILayout.Height (buttonHeight)))
 			Application.Quit();
-
-
 
 		GUILayout.EndArea ();
 	}

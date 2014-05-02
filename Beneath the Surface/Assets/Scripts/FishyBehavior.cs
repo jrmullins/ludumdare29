@@ -80,7 +80,6 @@ public class FishyBehavior : MonoBehaviour {
 	void attack(){
 		float verticalRotationSpeed = 20.0f;
 		float wantedAngle = Vector2.Angle (transform.forward, thePlayer.transform.position) - 90.0f;
-		Debug.Log (wantedAngle);
 		float angle = Mathf.LerpAngle (transform.eulerAngles.z, wantedAngle, verticalRotationSpeed * Time.deltaTime);
 		Vector3 rotateVector = new Vector3(0, transform.rotation.y, angle);
 
@@ -88,7 +87,6 @@ public class FishyBehavior : MonoBehaviour {
 			rotateVector.y = 180.0f;
 
 		transform.eulerAngles = rotateVector;
-		//ifgoingleft y=180, z=z+180
 		transform.position = Vector2.MoveTowards (transform.position, thePlayer.transform.position, attackSwimSpeed);
 	}
 
@@ -105,8 +103,6 @@ public class FishyBehavior : MonoBehaviour {
 
 	void checkAggression(){
 		distanceToPlayer = Vector2.Distance(transform.position, thePlayer.transform.position);
-		//Debug.Log ("Distance to player is " + distanceToPlayer);
-		//Give up attacking
 		if(attacking && Time.time > stopAttackTime){
 			attacking = false;
 			returningToSpawnPoint = true;
@@ -133,20 +129,16 @@ public class FishyBehavior : MonoBehaviour {
 
 	void turner() {
 		float currentXPos = transform.position.x;
-		//Debug.Log (currentXPos +  " is less than " + nextTurnPoint.x);
+
 		if (goingLeft && currentXPos < nextTurnPoint.x){
 			nextTurnPoint.x = transform.position.x + patrolRange;
 			transform.eulerAngles = new Vector3(0, 180.0f, 0);
 			goingLeft = false;
-
-			//Debug.Log ("RoTATE RIGHT");
-
 		}
 
 		if (!goingLeft && currentXPos > nextTurnPoint.x){
 			goingLeft = true;
 			nextTurnPoint.x = transform.position.x - patrolRange;
-			//Debug.Log ("RoTATE LEFT");
 			transform.eulerAngles = new Vector3(0, 0.0f, 0);
 		}
 
@@ -157,37 +149,13 @@ public class FishyBehavior : MonoBehaviour {
 		int newTarget = Mathf.RoundToInt(randomValue);
 		if (newTarget == 0)
 		{
-			//Debug.Log ("Chose left");
 			goingLeft = true;
 			nextTurnPoint.x = transform.position.x - patrolRange;
 			transform.eulerAngles = new Vector3(0, 0.0f, 0);
 		} else {
-			//Debug.Log ("Chose right");
 			goingLeft = false;
 			nextTurnPoint.x = transform.position.x + patrolRange;
 			transform.eulerAngles = new Vector3(0, 180.0f, 0);
 		}
 	}
-
-	//	void OnCollisionEnter2D(Collision2D collision)
-	//	{
-	//		Debug.Log ("collision.gameObject.name: " + collision.gameObject.name);
-	//		Debug.Log ("collision.gameObject.tag: " + collision.gameObject.tag);
-	//		if (collision.gameObject.tag == "Mouth") {
-	//			HarlemShake hs = Camera.main.GetComponent<HarlemShake>();
-	//			hs.startShake();
-	//			if (!attacking) {
-	//				playerAnimation.playEat (healthSystemAmount);
-	//				healthSystem.removeHealth(eatDamage);
-	//			}
-	//		}
-	//		
-	//		if(collision.gameObject.tag == "Player") {
-	//			playerAnimation.playDamage (healthSystemAmount);
-	//			attacking = false;
-	//			returningToSpawnPoint = true;
-	//		}
-	//		
-	//	}
-
 }

@@ -56,7 +56,6 @@ public class SharkMover : MonoBehaviour {
 				swimRight ();
 			}
 
-			//TODO Clean this up
 			if (Input.GetKeyUp (KeyCode.W) || Input.GetKeyUp (KeyCode.UpArrow))
 				wantedAngle = 0.0f;
 
@@ -65,11 +64,11 @@ public class SharkMover : MonoBehaviour {
 
 			swimFaster ();
 		}
+		fixGravity ();
 
 	}
 
-	void FixedUpdate()
-	{
+	void FixedUpdate(){
 		rotateShark ();
 	}
 
@@ -100,21 +99,25 @@ public class SharkMover : MonoBehaviour {
 		swim (Vector2.right);
 	}
 	
-	void swim(Vector2 direction)
-	{
-		//transform.Translate (-Vector2.right * currentSpeed * Time.deltaTime);
+	void swim(Vector2 direction){
 		physicsSwim (direction);
 	}
 
-	void physicsSwim(Vector2 direction)
-	{
+	void physicsSwim(Vector2 direction){
 		transform.rigidbody2D.AddForce (direction * (currentSpeed * swimForce) * Time.deltaTime);
+	}
+
+	void fixGravity(){
+		if(transform.position.y < 157 && rigidbody2D.gravityScale != 0){
+			isFlying= false;
+			rigidbody2D.gravityScale = 0;
+			Debug.LogWarning("Had to fix gravity");
+		}
 	}
 
 	void rotateShark()
 	{
 		float targetAngle;
-
 		if (goingLeft) {
 			ragePixel.SetHorizontalFlip(false);
 		}
@@ -151,10 +154,5 @@ public class SharkMover : MonoBehaviour {
 	bool leftKeyCodes() {
 		return Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.LeftArrow);
 	}
-
-//	void OnTriggerEnter2D(Collider2D other)
-//	{
-//		Debug.Log ("Trigger Entered in shark");
-//	}
 
 }
